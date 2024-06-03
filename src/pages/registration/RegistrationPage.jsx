@@ -8,6 +8,8 @@ import {
   BtnWithoutHover,
   StyledTextField,
 } from "../../styledElements";
+import { validationSchema } from "./validationSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export const RegistrationPage = () => {
   const { control, handleSubmit } = useForm({
@@ -17,6 +19,7 @@ export const RegistrationPage = () => {
       confirmPassword: "",
     },
     mode: "onBlur",
+    resolver: yupResolver(validationSchema),
   });
 
   const navigate = useNavigate();
@@ -33,13 +36,6 @@ export const RegistrationPage = () => {
         <Title>Sing Up</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            rules={{
-              required: "This field is required",
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "Invalid email address",
-              },
-            }}
             name="email"
             control={control}
             render={({ field, fieldState }) => (
@@ -68,13 +64,6 @@ export const RegistrationPage = () => {
             )}
           />
           <Controller
-            rules={{
-              required: "This field is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters long",
-              },
-            }}
             name="password"
             control={control}
             render={({ field, fieldState }) => (
@@ -100,13 +89,6 @@ export const RegistrationPage = () => {
             )}
           />
           <Controller
-            rules={{
-              required: "This field is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters long",
-              },
-            }}
             name="confirmPassword"
             control={control}
             render={({ field, fieldState }) => (

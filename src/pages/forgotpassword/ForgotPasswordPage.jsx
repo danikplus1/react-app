@@ -1,17 +1,15 @@
 import { useForm, Controller } from "react-hook-form";
 import { Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import {
   UserTemplate,
   Btn,
-  BtnWithoutHover,
-  StyledTextField,
   Title,
+  StyledTextField,
 } from "../../styledElements";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./validationSchema";
 
-export const LoginPage = () => {
+export const ForgotPasswordPage = () => {
   const {
     control,
     handleSubmit,
@@ -19,13 +17,10 @@ export const LoginPage = () => {
   } = useForm({
     defaultValues: {
       email: "",
-      password: "",
     },
     mode: "onBlur",
     resolver: yupResolver(validationSchema),
   });
-
-  const navigate = useNavigate();
 
   const onSubmit = (formData) => {
     console.log(formData.email);
@@ -35,7 +30,7 @@ export const LoginPage = () => {
   return (
     <UserTemplate>
       <Box className="container">
-        <Title>Log in to App</Title>
+        <Title>Reset Password</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="email"
@@ -65,32 +60,6 @@ export const LoginPage = () => {
               </div>
             )}
           />
-          <Controller
-            name="password"
-            control={control}
-            render={({ field, fieldState }) => (
-              <div>
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { mb: 1, width: "100%" },
-                  }}
-                >
-                  <StyledTextField
-                    {...field}
-                    type="password"
-                    label="Password"
-                    placeholder="Put your password"
-                    variant="filled"
-                    size="small"
-                    error={!!fieldState.error}
-                    helperText={fieldState?.error?.message}
-                  />
-                </Box>
-              </div>
-            )}
-          />
-
           <Box
             component="div"
             sx={{
@@ -102,32 +71,8 @@ export const LoginPage = () => {
               onClick={handleSubmit(onSubmit)}
               disabled={!isValid || isSubmitting}
             >
-              Log in
+              Reset password
             </Btn>
-          </Box>
-          <Box
-            component="div"
-            sx={{
-              marginBottom: "8px",
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <BtnWithoutHover
-              variant="text"
-              onClick={() => navigate("/registration")}
-              sx={{ textTransform: "none", textDecoration: "underline" }}
-            >
-              Create account
-            </BtnWithoutHover>
-            <BtnWithoutHover
-              variant="text"
-              onClick={() => navigate("/forgot-password")}
-              sx={{ textTransform: "none", textDecoration: "underline" }}
-            >
-              Forgot password?
-            </BtnWithoutHover>
           </Box>
         </form>
       </Box>
