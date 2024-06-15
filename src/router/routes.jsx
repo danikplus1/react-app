@@ -1,4 +1,9 @@
-import { LoginPage, RegistrationPage, ForgotPasswordPage } from "../pages";
+import {
+  LoginPage,
+  RegistrationPage,
+  ForgotPasswordPage,
+  DashboardPage,
+} from "../pages";
 
 export const routes = [
   {
@@ -16,5 +21,9 @@ export const routes = [
   {
     path: "/forgot-password",
     element: <ForgotPasswordPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
   },
 ];

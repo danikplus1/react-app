@@ -12,7 +12,11 @@ import { validationSchema } from "./validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export const RegistrationPage = () => {
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid, isSubmitting },
+  } = useForm({
     defaultValues: {
       email: "",
       password: "",
@@ -28,6 +32,7 @@ export const RegistrationPage = () => {
     console.log(formData.email);
     console.log(formData.password);
     console.log(formData.confirmedPassword);
+    navigate("/login");
   };
 
   return (
@@ -120,7 +125,11 @@ export const RegistrationPage = () => {
               "& > :not(style)": { mb: 1, width: "100%" },
             }}
           >
-            <Btn variant="contained" onClick={handleSubmit(onSubmit)}>
+            <Btn
+              variant="contained"
+              onClick={handleSubmit(onSubmit)}
+              disabled={!isValid || isSubmitting}
+            >
               Create an account
             </Btn>
           </Box>

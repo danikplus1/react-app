@@ -5,6 +5,10 @@ export const Title = styled(Typography)`
   align-self: flex-start;
   padding: 8px 16px;
   color: #fff;
+
+  &.dashboard {
+    align-self: center;
+  }
 `;
 
 export const Container = styled(Box)`
@@ -30,6 +34,16 @@ export const UserTemplate = styled(Container)`
     border: 1px solid #424242;
     border-radius: 6px;
     background-color: #424242;
+  }
+  ,
+  & > .container-dashboard {
+    margin: 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background-color: #303030;
   }
 `;
 
@@ -61,4 +75,9 @@ export const StyledTextField = styled(TextField)`
   & .MuiFormHelperText-root {
     color: #c2c2c2;
   }
+`;
+
+export const BoxElement = styled(Box)`
+  height: 200px;
+  width: 200px;
 `;

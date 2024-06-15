@@ -30,6 +30,7 @@ export const LoginPage = () => {
   const onSubmit = (formData) => {
     console.log(formData.email);
     console.log(formData.password);
+    navigate("/dashboard");
   };
 
   return (
