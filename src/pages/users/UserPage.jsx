@@ -15,6 +15,17 @@ export const UserPage = () => {
       });
   }, []);
 
+  const titles = ["Mr.", "Mrs.", "Ms.", "Dr."];
+
+  const parseName = (name) => {
+    const parts = name.split(" ");
+    const firstName = titles.includes(parts[0]) ? parts[1] : parts[0];
+    const lastName = titles.includes(parts[0])
+      ? parts.slice(2).join(" ")
+      : parts.slice(1).join(" ");
+    return { firstName, lastName };
+  };
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     {
@@ -42,15 +53,13 @@ export const UserPage = () => {
   ];
 
   const rows = users.map((user) => {
-    const [firstName, ...lastNameArray] = user.name ? user.name.split(" ") : [];
-    const lastName = lastNameArray.join(" ");
-
+    const { firstName, lastName } = parseName(user.name);
     return {
       id: user.id,
       avatar: "",
       firstName: firstName || "",
       lastName: lastName || "",
-      email: user.email || "",
+      email: user.email,
     };
   });
 
@@ -73,15 +82,6 @@ export const UserPage = () => {
         }}
         pageSizeOptions={[5, 10]}
         checkboxSelection
-        components={{
-          Cell: ({ row, field }) => {
-            if (field === "avatar") {
-              const name = row.name || "";
-              return <Avatar>{name ? name[0] : ""}</Avatar>;
-            }
-            return <div>{row[field]}</div>;
-          },
-        }}
       />
     </div>
   );
