@@ -3,7 +3,10 @@ import {
   RegistrationPage,
   ForgotPasswordPage,
   DashboardPage,
+  UserPage,
 } from "../pages";
+
+import ProtectedRoute from "./ProtectedRoute";
 
 export const routes = [
   {
@@ -24,6 +27,18 @@ export const routes = [
   },
   {
     path: "/dashboard",
-    element: <DashboardPage />,
+    element: (
+      <ProtectedRoute>
+        <DashboardPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/users",
+    element: (
+      <ProtectedRoute>
+        <UserPage />
+      </ProtectedRoute>
+    ),
   },
 ];

@@ -10,6 +10,7 @@ import {
 } from "../../styledElements";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./validationSchema";
+import useUserStore from "../../store/useUserStore";
 
 export const LoginPage = () => {
   const {
@@ -26,11 +27,19 @@ export const LoginPage = () => {
   });
 
   const navigate = useNavigate();
+  const setUser = useUserStore((state) => state.setUser);
 
   const onSubmit = (formData) => {
-    console.log(formData.email);
-    console.log(formData.password);
-    navigate("/dashboard");
+    try {
+      if (formData.email && formData.password) {
+        setUser(formData.email);
+        navigate("/dashboard");
+      } else {
+        console.log("Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
